@@ -9,45 +9,59 @@ const resetBtn = document.querySelector(".timeDisplay #reset");
 let startM = document.querySelector(".timeDisplay #minStart");
 let startS = document.querySelector(".timeDisplay #secStart");
 
-    function handleStartClick() {
-       let intervalId = setInterval(function() {
-        if (sec.value > 0) {
-            sec.value--;
-            startM.innerText = min.value + " : ";
-            startS.innerText = sec.value;
-        } else if(min.value > 0) {
-            min.value--;
-            startM.innerText = min.value + " : ";
-            sec.value += 59;
-            startS.innerText = sec.value;
-        } else if(sec.value === 0 && min.value === 0){
-            alert("타이머 종료!"); // 실행 안 됨
+
+
+function handleStartClick() {
+    let minV = Number(min.value);
+    let secV = Number(sec.value);
+
+    setTimeDiv.style.display = "none";
+    stopBtn.style.display = "inline";
+    resetBtn.style.display = "inline";
+
+    let intervalId = setInterval(function() {
+        if (secV > 0) {
+            startM.innerText = minV + " : ";
+            startS.innerText = secV;
+            secV--;
+        } else if(minV > 0) {
+            minV--;
+            startM.innerText = minV + " : ";
+            secV += 59;
+            startS.innerText = secV;
+        } else if (stopBtn.onclick || resetBtn.onclick) {
+           return [minV, secV];
+        } else if(secV === 0 && minV === 0){
+            alert("타이머 종료!");
             clearInterval(intervalId);
         }},1000);
-    }
-
-
-    function displayTime() {
-        setTimeDiv.style.display = "none";
-        stopBtn.style.display = "inline";
-        resetBtn.style.display = "inline";
+        return [minV, secV];
     }
 
 
     function handleStopClick() {
-        clearInterval(intervalId);
+        // 어떻게 현재 타임을 그대로 멈추나?
+        const [m, s] = handleStartClick();
+        startM = m;
+        startS = s;
+    }
+
+    function handleResetClick() {
+        // 리셋 버튼
+        setTimeDiv.style.display = "inline";
+        stopBtn.style.display = "none";
+        resetBtn.style.display = "none";
+
+        // const [m,s] = handleStartClick();
+        // startM = 0;
+        // startS = 0;
     }
 
 
-startBtn.addEventListener("click", handleStartClick);
-stopBtn.addEventListener("click",handleStopClick);
 
-// 시작 버튼을 누르면 사용자가 입력한 분, 초의 타이머 시작
-// 1초마다 렌더링 되는 페이지를 보여줘야 됨(타이머의 카운트다운)
-// min의 값과 sec의 값을 가져와서 시작?
-//
+startBtn.addEventListener("click", handleStartClick); // 시작 버튼
+stopBtn.addEventListener("click",handleStopClick); // 정지 버튼
+resetBtn.addEventListener("click", handleResetClick); // 초기화 버튼
 
 
-console.dir(setTimeDiv);
-
-// 1초 = 1000ms
+// console.dir(setTimeDiv);
