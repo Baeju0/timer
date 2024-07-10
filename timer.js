@@ -9,54 +9,52 @@ const resetBtn = document.querySelector(".timeDisplay #reset");
 let startM = document.querySelector(".timeDisplay #minStart");
 let startS = document.querySelector(".timeDisplay #secStart");
 
+let minV = 0;
+let secV = 0;
 
 
 function handleStartClick() {
-    let minV = Number(min.value);
-    let secV = Number(sec.value);
+    minV = Number(min.value);
+    secV = Number(sec.value);
 
     setTimeDiv.style.display = "none";
     stopBtn.style.display = "inline";
     resetBtn.style.display = "inline";
 
     let intervalId = setInterval(function() {
-        if (secV > 0) {
+        if (secV > -1) {
             startM.innerText = minV + " : ";
             startS.innerText = secV;
             secV--;
         } else if(minV > 0) {
             minV--;
             startM.innerText = minV + " : ";
-            secV += 59;
+            secV += 60;
             startS.innerText = secV;
-        } else if (stopBtn.onclick || resetBtn.onclick) {
-           return [minV, secV];
-        } else if(secV === 0 && minV === 0){
+        } else if(secV === -1 && minV === 0){
             alert("타이머 종료!");
             clearInterval(intervalId);
         }},1000);
-        return [minV, secV];
-    }
+}
 
 
-    function handleStopClick() {
-        // 어떻게 현재 타임을 그대로 멈추나?
-        const [m, s] = handleStartClick();
-        startM = m;
-        startS = s;
-    }
+function handleStopClick() {
+    // 어떻게 현재 타임을 그대로 멈추나?
+    startM = min;
+    startS = sec;
+}
 
-    function handleResetClick() {
-        // 리셋 버튼
-        setTimeDiv.style.display = "inline";
-        stopBtn.style.display = "none";
-        resetBtn.style.display = "none";
+function handleResetClick() {
+    // 리셋 버튼
+    setTimeDiv.style.display = "inline";
+    stopBtn.style.display = "none";
+    resetBtn.style.display = "none";
+    startM.style.display = "none";
+    startS.style.display = "none";
 
-        // const [m,s] = handleStartClick();
-        // startM = 0;
-        // startS = 0;
-    }
-
+    minV = 0;
+    secV = 0;
+}
 
 
 startBtn.addEventListener("click", handleStartClick); // 시작 버튼
