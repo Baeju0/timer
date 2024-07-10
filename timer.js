@@ -46,14 +46,7 @@ function handleStopClick() {
 
 function handleResetClick() {
     // 리셋 버튼
-    setTimeDiv.style.display = "inline";
-    stopBtn.style.display = "none";
-    resetBtn.style.display = "none";
-    startM.style.display = "none";
-    startS.style.display = "none";
-
-    minV = 0;
-    secV = 0;
+    location.reload(); // 초기 상태로 다시 로드
 }
 
 
