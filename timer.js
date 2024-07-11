@@ -24,6 +24,10 @@ function handleStartClick() {
     stopBtn.style.display = "inline";
     resetBtn.style.display = "inline";
 
+    timeS();
+}
+
+function timeS() {
     intervalId = setInterval(function() {
         // 분이 남았을 때
         if (minV > 0 && secV === 0) {
@@ -50,6 +54,7 @@ function handleStopClick() {
 
 function handleRestartClick() {
     reStartBtn.style.display = "none";
+    timeS();
 }
 
 function handleResetClick() {
