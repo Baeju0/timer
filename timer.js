@@ -5,12 +5,15 @@ let setTimeDiv= document.querySelector(".timer");
 const startBtn = document.querySelector(".timer #start");
 const stopBtn = document.querySelector(".timeDisplay #stop");
 const resetBtn = document.querySelector(".timeDisplay #reset");
+const reStartBtn = document.querySelector(".timeDisplay #reStart");
 
 let startM = document.querySelector(".timeDisplay #minStart");
 let startS = document.querySelector(".timeDisplay #secStart");
 
 let minV = 0;
 let secV = 0;
+
+let intervalId;
 
 
 function handleStartClick() {
@@ -21,7 +24,7 @@ function handleStartClick() {
     stopBtn.style.display = "inline";
     resetBtn.style.display = "inline";
 
-    let intervalId = setInterval(function() {
+    intervalId = setInterval(function() {
         // 분이 남았을 때
         if (minV > 0 && secV === 0) {
             startM.innerText = minV + " : ";
@@ -41,9 +44,12 @@ function handleStartClick() {
 
 
 function handleStopClick() {
-    // 어떻게 현재 타임을 그대로 멈추나?
-    startM = min;
-    startS = sec;
+    reStartBtn.style.display = "inline";
+    clearInterval(intervalId);
+}
+
+function handleRestartClick() {
+    reStartBtn.style.display = "none";
 }
 
 function handleResetClick() {
@@ -55,6 +61,7 @@ function handleResetClick() {
 startBtn.addEventListener("click", handleStartClick); // 시작 버튼
 stopBtn.addEventListener("click",handleStopClick); // 정지 버튼
 resetBtn.addEventListener("click", handleResetClick); // 초기화 버튼
+reStartBtn.addEventListener("click", handleRestartClick); // 초기화 버튼
 
 
 // console.dir(setTimeDiv);
