@@ -22,19 +22,21 @@ function handleStartClick() {
     resetBtn.style.display = "inline";
 
     let intervalId = setInterval(function() {
-        if (secV > -1) {
+        // 분이 남았을 때
+        if (minV > 0 && secV === 0) {
+            startM.innerText = minV + " : ";
+            startS.innerText = secV;
+            minV--;
+            secV += 59;
+        } else if (minV === 0 && secV === -1) { // 분이 0, 초가 -1과 같을 때
+            alert("타이머 종료!");
+            clearInterval(intervalId);
+        } else {
             startM.innerText = minV + " : ";
             startS.innerText = secV;
             secV--;
-        } else if(minV > 0) {
-            minV--;
-            startM.innerText = minV + " : ";
-            secV += 60;
-            startS.innerText = secV;
-        } else if(secV === -1 && minV === 0){
-            alert("타이머 종료!");
-            clearInterval(intervalId);
-        }},1000);
+        }
+    },1000);
 }
 
 
