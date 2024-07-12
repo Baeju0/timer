@@ -49,11 +49,13 @@ function timeS() {
 
 function handleStopClick() {
     reStartBtn.style.display = "inline";
+    stopBtn.style.display = "none";
     clearInterval(intervalId);
 }
 
 function handleRestartClick() {
     reStartBtn.style.display = "none";
+    stopBtn.style.display = "inline";
     timeS();
 }
 
