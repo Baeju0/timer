@@ -66,7 +66,7 @@ function handleResetClick() {
 startBtn.addEventListener("click", handleStartClick); // 시작 버튼
 stopBtn.addEventListener("click",handleStopClick); // 정지 버튼
 resetBtn.addEventListener("click", handleResetClick); // 초기화 버튼
-reStartBtn.addEventListener("click", handleRestartClick); // 초기화 버튼
+reStartBtn.addEventListener("click", handleRestartClick); // 재개 버튼
 
 
 // console.dir(setTimeDiv);
